@@ -1,6 +1,8 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom'
+
+import NxtContext from '../../context/CreateContext'
 import './index.css'
 
 class LoginForm extends Component {
@@ -94,46 +96,71 @@ class LoginForm extends Component {
     )
   }
 
+  renderForm = () => (
+    <NxtContext.Consumer>
+      {value => {
+        const {isDarkTheme, toggleTheme} = value
+        const {isChecked, errorMsg, showSubmitError} = this.state
+        const onChangeImage = isDarkTheme
+          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+
+        const activeDarkLightClassName = isDarkTheme ? 'active-Dark' : 'Light'
+
+        return (
+          <div className="login-form-container">
+            <div className="login-container">
+              <form
+                className={activeDarkLightClassName}
+                onSubmit={this.submitForm}
+              >
+                <img
+                  src={onChangeImage}
+                  alt="website logo"
+                  className="watch"
+                  onClick={toggleTheme}
+                />
+                <div className="input-container">
+                  {this.renderUsernameField()}
+                </div>
+                <div className="input-container">
+                  {this.renderPasswordField()}
+                </div>
+                <div className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    id="isChecked"
+                    value={isChecked}
+                    checked={isChecked}
+                    onChange={this.onChecked}
+                  />
+                  <label htmlFor="isChecked" className="show-password">
+                    Show Password
+                  </label>
+                </div>
+
+                <button type="submit" className="login-button">
+                  Login
+                </button>
+                {showSubmitError && (
+                  <p className="error-message">*{errorMsg}</p>
+                )}
+              </form>
+            </div>
+          </div>
+        )
+      }}
+    </NxtContext.Consumer>
+  )
+
   render() {
-    const {showSubmitError, errorMsg, isChecked} = this.state
     const jwtToken = Cookies.get('jwt_token')
 
     if (jwtToken !== undefined) {
       return <Redirect to="/" />
     }
-    return (
-      <div className="login-form-container">
-        <div className="login-container">
-          <form className="form-container" onSubmit={this.submitForm}>
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-              alt="website logo"
-              className="watch"
-            />
-            <div className="input-container">{this.renderUsernameField()}</div>
-            <div className="input-container">{this.renderPasswordField()}</div>
-            <div className="checkbox-container">
-              <input
-                type="checkbox"
-                className="checkbox"
-                id="isChecked"
-                value={isChecked}
-                checked={isChecked}
-                onChange={this.onChecked}
-              />
-              <label htmlFor="isChecked" className="show-password">
-                Show Password
-              </label>
-            </div>
-
-            <button type="submit" className="login-button">
-              Login
-            </button>
-            {showSubmitError && <p className="error-message">*{errorMsg}</p>}
-          </form>
-        </div>
-      </div>
-    )
+    return <>{this.renderForm()}</>
   }
 }
 export default LoginForm

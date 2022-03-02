@@ -1,0 +1,38 @@
+.side-container {
+  height: 100vh;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.side-sub-container {
+  list-style-type: none;
+  height: 50vh;
+}
+
+.all-container {
+  display: flex;
+  flex-direction: row;
+}
+.list-item {
+  padding-top: 15px;
+  margin-left: 10px;
+}
+.contact-us-container {
+  display: flex;
+  list-style-type: none;
+}
+.contact-heading {
+  font-size: 15px;
+  margin-left: 15px;
+}
+.logo {
+  width: 25px;
+  margin: 5px;
+}
+.main-icon {
+  margin-top: 15px;
+}
+.contact-paragraph {
+  margin-left: 15px;
+}

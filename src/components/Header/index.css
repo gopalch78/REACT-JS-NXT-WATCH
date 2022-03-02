@@ -1,0 +1,50 @@
+.header-container {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+  justify-content: space-between;
+}
+
+.nxt-watch-light-dark-theme {
+  width: 55%;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.header-un-order-list {
+  display: flex;
+  list-style-type: none;
+}
+
+.nxt-watch-Profile {
+  width: 9%;
+  margin-left: 15px;
+}
+.moon-icon {
+  height: 40px;
+  width: 55px;
+  margin-left: 15px;
+}
+.logout-button {
+  color: #3b82f6;
+  width: 90px;
+  height: 30px;
+  margin-right: 20px;
+  border: #3b82f6 solid 1px;
+  margin-left: 18px;
+}
+.navbar-bg-dark {
+  background-color: #000000;
+}
+.navbar-bg-light {
+  background-color: #ffffff;
+}
+.icon {
+  color: #ffffff;
+  height: 35px;
+  width: 25px;
+}
+
+.icon-1 {
+  height: 35px;
+  width: 25px;
+}

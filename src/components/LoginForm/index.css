@@ -116,3 +116,10 @@
   line-height: 16px;
   color: #ff0b37;
 }
+
+.active-Dark {
+  background-color: #000000;
+}
+.Light {
+  background-color: #ffffff;
+}
