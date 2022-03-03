@@ -25,15 +25,27 @@
   margin-left: 15px;
 }
 .logout-button {
-  color: #3b82f6;
+  color: white;
   width: 90px;
   height: 30px;
   margin-right: 20px;
   border: #3b82f6 solid 1px;
+  background-color: #3b82f6;
   margin-left: 18px;
 }
+
+.trigger-button {
+  color: white;
+  width: 90px;
+  height: 30px;
+  margin-right: 20px;
+  border: #3b82f6 solid 1px;
+  color: #3b82f6;
+  margin-left: 18px;
+}
+
 .navbar-bg-dark {
-  background-color: #000000;
+  background-color: #424242;
 }
 .navbar-bg-light {
   background-color: #ffffff;
@@ -47,4 +59,24 @@
 .icon-1 {
   height: 35px;
   width: 25px;
+}
+.logout-paragraph {
+  text-align: center;
+}
+
+.popup-container {
+  background-color: #424242;
+  height: 100px;
+  border: none;
+}
+.pop-logout-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.trigger-button-close {
+  background-color: #212121;
+  color: #f4f4f4;
+  border: 1px solid #424242;
 }

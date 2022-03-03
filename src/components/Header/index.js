@@ -1,4 +1,8 @@
 import {withRouter} from 'react-router-dom'
+import Popup from 'reactjs-popup'
+
+import 'reactjs-popup/dist/index.css'
+
 import {FaMoon} from 'react-icons/fa'
 
 import {BsSun} from 'react-icons/bs'
@@ -53,13 +57,41 @@ const Header = props => {
                       className="nxt-watch-Profile"
                     />
 
-                    <button
-                      type="button"
-                      onClick={onClickLogout}
-                      className="logout-button"
-                    >
-                      Logout
-                    </button>
+                    <div>
+                      <Popup
+                        className="popup"
+                        modal
+                        trigger={
+                          <button type="button" className="trigger-button">
+                            Logout
+                          </button>
+                        }
+                      >
+                        {close => (
+                          <div className="popup-container">
+                            <p className="logout-paragraph">
+                              Are you sure,you want to logout ?
+                            </p>
+                            <div className="pop-logout-container">
+                              <button
+                                type="button"
+                                className="trigger-button-close"
+                                onClick={() => close()}
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                onClick={onClickLogout}
+                                className="logout-button"
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </Popup>
+                    </div>
                   </ul>
                 </div>
               </div>

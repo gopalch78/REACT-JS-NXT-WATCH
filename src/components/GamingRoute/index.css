@@ -1,0 +1,27 @@
+.game-container {
+  display: flex;
+  flex-direction: row;
+}
+.gaming-dark-heading {
+  color: white;
+  margin-top: 40px;
+  margin-left: 45px;
+}
+.gaming-light-heading {
+  color: black;
+  margin-top: 40px;
+  margin-left: 45px;
+}
+.gaming-dark {
+  background-color: black;
+}
+.gaming-light {
+  background-color: white;
+}
+.gaming-retry-button {
+  height: 30px;
+  width: 100px;
+  color: white;
+  background-color: #4f46e5;
+  border-radius: 8px;
+}

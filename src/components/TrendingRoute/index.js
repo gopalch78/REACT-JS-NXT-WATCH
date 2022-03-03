@@ -2,16 +2,11 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
-import {IoIosClose} from 'react-icons/io'
-
-import {BsSearch} from 'react-icons/bs'
-
-import HomeVideoItem from '../HomeVideoItem'
-
 import Header from '../Header'
 
 import SideContainer from '../SideContainer'
 
+import TrendingItem from '../TrendingItem'
 import './index.css'
 
 const apiStatusConstants = {
@@ -21,23 +16,22 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
-class Home extends Component {
+class TrendingRoute extends Component {
   state = {
-    videosData: [],
-    searchInput: '',
+    trendingData: [],
     apiStatus: apiStatusConstants.initial,
   }
 
   componentDidMount() {
-    this.getVideosData()
+    this.getTrendingData()
   }
 
-  getVideosData = async () => {
+  getTrendingData = async () => {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
     const jwtToken = Cookies.get('jwt_token')
-    const homeVideosApiUrl = `https://apis.ccbp.in/videos/all?search=`
+    const homeVideosApiUrl = `https://apis.ccbp.in/videos/trending`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -57,19 +51,13 @@ class Home extends Component {
       publishedAt: each.published_at,
     }))
     this.setState({
-      videosData: updatedData,
+      trendingData: updatedData,
       apiStatus: apiStatusConstants.success,
     })
   }
 
-  onChangeSearchInput = event => {
-    this.setState({
-      searchInput: event.target.value,
-    })
-  }
-
   onClickRetry = () => {
-    this.getVideosData()
+    this.getTrendingData()
   }
 
   renderLoadingView = () => (
@@ -95,15 +83,13 @@ class Home extends Component {
   )
 
   renderHomeVideoItem = () => {
-    const {videosData, searchInput} = this.state
-    const searchResults = videosData.filter(each =>
-      each.name.toLowerCase().includes(searchInput.toLowerCase()),
-    )
+    const {trendingData} = this.state
+
     return (
       <ul className="un-order-home-video-container">
-        {searchResults.length > 0 ? (
-          searchResults.map(each => (
-            <HomeVideoItem homeItemDetails={each} key={each.id} />
+        {trendingData.length > 0 ? (
+          trendingData.map(each => (
+            <TrendingItem TrendingItemDetails={each} key={each.id} />
           ))
         ) : (
           <div>
@@ -138,7 +124,6 @@ class Home extends Component {
   }
 
   render() {
-    const {searchInput} = this.state
     return (
       <div>
         <Header />
@@ -147,40 +132,15 @@ class Home extends Component {
             <SideContainer />
           </div>
           <div className="premium-non-premium-container">
-            <div className="side-second-container">
-              <img
-                src=" https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                alt="dark"
-                className="nxt-image"
-              />
-              <p>Buy Nxt Watch Premium prepaid plans with UPI</p>
-              <button type="button">GET IT NOW</button>
-            </div>
-
             <div className="home-video-container">
-              <div className="search-container">
-                <input
-                  type="text"
-                  placeholder="search-"
-                  className="input-field"
-                  value={searchInput}
-                  onChange={this.onChangeSearchInput}
-                />
-                <button type="button" className="search-button">
-                  <BsSearch
-                    className="search-icon"
-                    onClick={this.onClickRetry}
-                  />
-                </button>
-              </div>
-              {this.renderHomeDetails()}
+              <h1>Trending</h1>
+              <div className="search-container">{this.renderHomeDetails()}</div>
             </div>
           </div>
-          <IoIosClose className="close" />
         </div>
       </div>
     )
   }
 }
 
-export default Home
+export default TrendingRoute
