@@ -1,9 +1,12 @@
+import {Link} from 'react-router-dom'
+
 import './index.css'
 
 const TrendingItem = props => {
   const {TrendingItemDetails} = props
   const {
     title,
+    id,
     name,
     profileImageUrl,
     thumbnailUrl,
@@ -12,13 +15,15 @@ const TrendingItem = props => {
   } = TrendingItemDetails
 
   return (
-    <li className="list-home-item-container">
+    <div className="list-home-item-container">
       <div className="image-container">
-        <img
-          src={thumbnailUrl}
-          alt=" video thumbnail"
-          className="thumbnail-url"
-        />
+        <Link to={`/videos/${id}`}>
+          <img
+            src={thumbnailUrl}
+            alt="video thumbnail"
+            className="thumbnail-url"
+          />
+        </Link>
       </div>
       <div className="profile-name-title-container">
         <div>
@@ -38,7 +43,7 @@ const TrendingItem = props => {
           </div>
         </div>
       </div>
-    </li>
+    </div>
   )
 }
 export default TrendingItem

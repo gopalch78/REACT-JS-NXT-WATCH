@@ -1,6 +1,17 @@
 .side-by-side-container {
   display: flex;
-  flex-direction: row;
+}
+
+.image-close-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-button {
+  height: 30px;
+  width: 30px;
+  background-color: #ffffff;
+  border: none;
 }
 .side-first-container {
   display: flex;
@@ -21,12 +32,12 @@
   margin-top: 20px;
 }
 .close {
-  height: 50px;
-  width: 100px;
+  height: 30px;
+  width: 30px;
 }
 .premium-non-premium-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .input-field {
@@ -73,4 +84,11 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
+}
+.visible {
+  display: visible;
+}
+
+.hide {
+  display: none !important;
 }

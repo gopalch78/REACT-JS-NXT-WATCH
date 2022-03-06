@@ -7,9 +7,33 @@
   display: flex;
   flex-direction: row;
 }
-.list-item {
-  padding-top: 15px;
+.link-dark {
+  text-decoration: none;
+  color: #ffffff;
+}
+.link-light {
+  text-decoration: none;
+  color: black;
+}
+.list-item-home {
+  margin-top: 20px;
   margin-left: 10px;
+}
+
+.list-item-trend {
+  margin-top: 20px;
+  margin-left: 10px;
+  color: #ffffff;
+}
+.list-item-game {
+  margin-top: 20px;
+  margin-left: 10px;
+  color: #ffffff;
+}
+.list-item-save {
+  margin-top: 20px;
+  margin-left: 10px;
+  color: #ffffff;
 }
 .contact-us-container {
   display: flex;
@@ -23,12 +47,16 @@
   width: 25px;
   margin: 5px;
 }
-.main-icon {
-  margin-top: 15px;
+
+.color-icon-dark {
+  color: red;
+  margin-top: 25px;
 }
-.contact-paragraph {
-  margin-left: 15px;
+
+.color-icon-light {
+  color: black;
 }
+
 .sidebar-dark-container {
   background-color: #424242;
   height: 100vh;

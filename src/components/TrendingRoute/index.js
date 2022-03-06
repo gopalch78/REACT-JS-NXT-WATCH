@@ -7,6 +7,9 @@ import Header from '../Header'
 import SideContainer from '../SideContainer'
 
 import TrendingItem from '../TrendingItem'
+
+import NxtContext from '../../context/CreateContext'
+
 import './index.css'
 
 const apiStatusConstants = {
@@ -39,21 +42,27 @@ class TrendingRoute extends Component {
       method: 'GET',
     }
     const response = await fetch(homeVideosApiUrl, options)
-    const data = await response.json()
+    if (response.ok === true) {
+      const data = await response.json()
 
-    const updatedData = data.videos.map(each => ({
-      id: each.id,
-      title: each.title,
-      thumbnailUrl: each.thumbnail_url,
-      name: each.channel.name,
-      profileImageUrl: each.channel.profile_image_url,
-      viewCount: each.view_count,
-      publishedAt: each.published_at,
-    }))
-    this.setState({
-      trendingData: updatedData,
-      apiStatus: apiStatusConstants.success,
-    })
+      const updatedData = data.videos.map(each => ({
+        id: each.id,
+        title: each.title,
+        thumbnailUrl: each.thumbnail_url,
+        name: each.channel.name,
+        profileImageUrl: each.channel.profile_image_url,
+        viewCount: each.view_count,
+        publishedAt: each.published_at,
+      }))
+      this.setState({
+        trendingData: updatedData,
+        apiStatus: apiStatusConstants.success,
+      })
+    } else {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+      })
+    }
   }
 
   onClickRetry = () => {
@@ -67,19 +76,35 @@ class TrendingRoute extends Component {
   )
 
   renderFailureView = () => (
-    <div className="product-details-error-view-container">
-      <img
-        alt="error view"
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png"
-        className="error-view-image"
-      />
-      <h1 className="product-not-found-heading">Opps! Something Went Wrong</h1>
-      <p>We are having some trouble to complete your request.</p>
-      <p>Please try again.</p>
-      <button type="button" className="button">
-        Retry
-      </button>
-    </div>
+    <NxtContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+        const videoImageClassName = isDarkTheme
+          ? ' https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+          : ' https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+        return (
+          <div className="product-details-error-view-container">
+            <img
+              alt="failure view"
+              src={videoImageClassName}
+              className="error-view-image"
+            />
+            <h1 className="product-not-found-heading">
+              Oops! Something Went Wrong
+            </h1>
+            <p>We are having some trouble</p>
+            <p>Please try again.</p>
+            <button
+              type="button"
+              className="button"
+              onClick={this.onClickRetry}
+            >
+              Retry
+            </button>
+          </div>
+        )
+      }}
+    </NxtContext.Consumer>
   )
 
   renderHomeVideoItem = () => {
@@ -125,7 +150,7 @@ class TrendingRoute extends Component {
 
   render() {
     return (
-      <div>
+      <div data-testid="trending">
         <Header />
         <div className="side-by-side-container">
           <div className="side-first-container">

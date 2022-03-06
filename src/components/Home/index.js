@@ -12,6 +12,8 @@ import Header from '../Header'
 
 import SideContainer from '../SideContainer'
 
+import NxtContext from '../../context/CreateContext'
+
 import './index.css'
 
 const apiStatusConstants = {
@@ -26,6 +28,7 @@ class Home extends Component {
     videosData: [],
     searchInput: '',
     apiStatus: apiStatusConstants.initial,
+    bannerVisible: true,
   }
 
   componentDidMount() {
@@ -37,7 +40,8 @@ class Home extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
     const jwtToken = Cookies.get('jwt_token')
-    const homeVideosApiUrl = `https://apis.ccbp.in/videos/all?search=`
+    const {searchInput} = this.state
+    const homeVideosApiUrl = `https://apis.ccbp.in/videos/all?search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -45,21 +49,27 @@ class Home extends Component {
       method: 'GET',
     }
     const response = await fetch(homeVideosApiUrl, options)
-    const data = await response.json()
+    if (response.ok === true) {
+      const data = await response.json()
 
-    const updatedData = data.videos.map(each => ({
-      id: each.id,
-      title: each.title,
-      thumbnailUrl: each.thumbnail_url,
-      name: each.channel.name,
-      profileImageUrl: each.channel.profile_image_url,
-      viewCount: each.view_count,
-      publishedAt: each.published_at,
-    }))
-    this.setState({
-      videosData: updatedData,
-      apiStatus: apiStatusConstants.success,
-    })
+      const updatedData = data.videos.map(each => ({
+        id: each.id,
+        title: each.title,
+        thumbnailUrl: each.thumbnail_url,
+        name: each.channel.name,
+        profileImageUrl: each.channel.profile_image_url,
+        viewCount: each.view_count,
+        publishedAt: each.published_at,
+      }))
+      this.setState({
+        videosData: updatedData,
+        apiStatus: apiStatusConstants.success,
+      })
+    } else {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+      })
+    }
   }
 
   onChangeSearchInput = event => {
@@ -69,7 +79,12 @@ class Home extends Component {
   }
 
   onClickRetry = () => {
-    this.getVideosData()
+    const {searchInput} = this.state
+    this.setState({searchInput}, this.getVideosData)
+  }
+
+  onClickRemove = () => {
+    this.setState({bannerVisible: false})
   }
 
   renderLoadingView = () => (
@@ -79,19 +94,34 @@ class Home extends Component {
   )
 
   renderFailureView = () => (
-    <div className="product-details-error-view-container">
-      <img
-        alt="error view"
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png"
-        className="error-view-image"
-      />
-      <h1 className="product-not-found-heading">Opps! Something Went Wrong</h1>
-      <p>We are having some trouble to complete your request.</p>
-      <p>Please try again.</p>
-      <button type="button" className="button">
-        Retry
-      </button>
-    </div>
+    <NxtContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+        const imageClassName = isDarkTheme
+          ? ' https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+          : ' https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+        return (
+          <div>
+            <img
+              alt="failure view"
+              src={imageClassName}
+              className="error-view-image"
+            />
+            <h1 className="gaming-not-found-heading">
+              Oops! Something Went Wrong
+            </h1>
+            <p>We are having some trouble</p>
+            <button
+              type="button"
+              className="gaming-retry-button"
+              onClick={this.onClickRetry}
+            >
+              Retry
+            </button>
+          </div>
+        )
+      }}
+    </NxtContext.Consumer>
   )
 
   renderHomeVideoItem = () => {
@@ -138,35 +168,55 @@ class Home extends Component {
   }
 
   render() {
-    const {searchInput} = this.state
+    const {searchInput, bannerVisible} = this.state
+    const bannerClass = bannerVisible ? '' : 'hide'
     return (
       <div>
         <Header />
-        <div className="side-by-side-container">
+
+        <div className="side-by-side-container" data-testid="home">
           <div className="side-first-container">
             <SideContainer />
           </div>
-          <div className="premium-non-premium-container">
-            <div className="side-second-container">
-              <img
-                src=" https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                alt="dark"
-                className="nxt-image"
-              />
-              <p>Buy Nxt Watch Premium prepaid plans with UPI</p>
-              <button type="button">GET IT NOW</button>
+          <div>
+            <div className="premium-non-premium-container">
+              <div
+                className={`side-second-container ${bannerClass}`}
+                data-testid="banner"
+              >
+                <div className="image-close-container">
+                  <img
+                    src=" https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png"
+                    alt="nxt watch logo"
+                    className="nxt-image"
+                  />
+                  <button
+                    type="button"
+                    className="close-button"
+                    onClick={this.onClickRemove}
+                    data-testid="close"
+                  >
+                    <IoIosClose className="close" />
+                  </button>
+                </div>
+                <p>Buy Nxt Watch Premium prepaid plans with UPI</p>
+                <button type="button">GET IT NOW</button>
+              </div>
             </div>
-
             <div className="home-video-container">
               <div className="search-container">
                 <input
-                  type="text"
+                  type="search"
                   placeholder="search-"
                   className="input-field"
                   value={searchInput}
                   onChange={this.onChangeSearchInput}
                 />
-                <button type="button" className="search-button">
+                <button
+                  type="button"
+                  className="search-button"
+                  data-testid="searchButton"
+                >
                   <BsSearch
                     className="search-icon"
                     onClick={this.onClickRetry}
@@ -176,7 +226,6 @@ class Home extends Component {
               {this.renderHomeDetails()}
             </div>
           </div>
-          <IoIosClose className="close" />
         </div>
       </div>
     )

@@ -1,0 +1,75 @@
+.video-item-container {
+  display: flex;
+  flex-direction: row;
+}
+.react-player-heading-dark {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-left: 10px;
+  color: white;
+}
+.react-player-heading-light {
+  font-size: 20px;
+  margin-top: 20px;
+}
+.react-player-like-dislike-save-container {
+  display: flex;
+  justify-content: space-between;
+}
+.view-published-container {
+  display: flex;
+}
+.like-dislike-save-container {
+  display: flex;
+  margin-right: 20px;
+}
+.profile {
+  height: 50px;
+  width: 50px;
+  border-radius: 26px 26px 26px 26px;
+}
+
+.image-container {
+  display: flex;
+}
+.name-container {
+  display: flex;
+  flex-direction: column;
+}
+.button-color {
+  margin-right: 10px;
+  color: #2563eb;
+}
+.button {
+  color: #64748b;
+}
+.button-dis-color {
+  color: #2563eb;
+  margin-right: 10px;
+}
+.button-dis {
+  color: #64748b;
+}
+.like {
+  margin-top: 3px;
+}
+.react-player-dark {
+  background-color: #181818;
+  height: 100vh;
+  width: 100%;
+}
+.react-player-light {
+  background-color: #f9f9f9;
+  height: 100vh;
+  width: 100%;
+}
+.icon-in-video-item {
+  font-size: 20px;
+  margin-top: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.selected {
+  color: #2563eb;
+}

@@ -13,11 +13,10 @@ const HomeVideoItem = props => {
     viewCount,
     publishedAt,
   } = homeItemDetails
-
   return (
     <li className="list-home-item-container">
       <div className="image-container">
-        <Link to={`/videos/${id}`}>
+        <Link to={`videos/${id}`}>
           <img
             src={thumbnailUrl}
             alt=" video thumbnail"

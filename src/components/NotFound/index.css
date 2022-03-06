@@ -1,1 +1,48 @@
-
+.not-found-container {
+  display: flex;
+  flex-direction: row;
+}
+.not-found-image-paragraph-button-dark-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+.not-found-image-paragraph-button-light-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #cccccc;
+}
+.home-not-found-button {
+  text-decoration: none;
+  text-align: center;
+}
+.not-heading-dark {
+  color: white;
+}
+.not-paragraph-dark {
+  color: #909090;
+}
+.not-button-dark {
+  background-color: rgb(60, 255, 0);
+  border-radius: 8px;
+  height: 30px;
+  width: 100px;
+}
+.not-button-light {
+  background-color: yellow;
+  border-radius: 8px;
+  height: 30px;
+  width: 100px;
+  color: pink;
+}
+.light-image {
+  width: 40%;
+}

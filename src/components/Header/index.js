@@ -1,4 +1,4 @@
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import Popup from 'reactjs-popup'
 
 import 'reactjs-popup/dist/index.css'
@@ -24,9 +24,6 @@ const Header = props => {
     <NxtContext.Consumer>
       {value => {
         const {isDarkTheme, toggleTheme} = value
-        const websiteLogoImageURL = isDarkTheme
-          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
 
         const navbarBgClassName = isDarkTheme
           ? 'navbar-bg-dark'
@@ -37,14 +34,16 @@ const Header = props => {
             <div className={navbarBgClassName}>
               <div className="header-container">
                 <div>
-                  <img
-                    src={websiteLogoImageURL}
-                    alt="dark-theme"
-                    className="nxt-watch-light-dark-theme"
-                  />
+                  <Link to="/">
+                    <img
+                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png"
+                      alt="website logo"
+                      className="nxt-watch-light-dark-theme"
+                    />
+                  </Link>
                 </div>
                 <div className="un-order-list-container">
-                  <ul className="header-un-order-list">
+                  <ul className="header-un-order-list" data-testid="gaming">
                     {isDarkTheme ? (
                       <BsSun onClick={toggleTheme} className="icon" />
                     ) : (
@@ -52,7 +51,7 @@ const Header = props => {
                     )}
 
                     <img
-                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png "
+                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
                       alt="profile"
                       className="nxt-watch-Profile"
                     />
@@ -62,7 +61,11 @@ const Header = props => {
                         className="popup"
                         modal
                         trigger={
-                          <button type="button" className="trigger-button">
+                          <button
+                            type="button"
+                            data-testid="theme"
+                            className="trigger-button"
+                          >
                             Logout
                           </button>
                         }
@@ -70,7 +73,7 @@ const Header = props => {
                         {close => (
                           <div className="popup-container">
                             <p className="logout-paragraph">
-                              Are you sure,you want to logout ?
+                              Are you sure, you want to logout
                             </p>
                             <div className="pop-logout-container">
                               <button

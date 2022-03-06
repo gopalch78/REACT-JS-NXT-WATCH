@@ -1,10 +1,12 @@
+import {Link} from 'react-router-dom'
+
 import NxtContext from '../../context/CreateContext'
 
 import './index.css'
 
 const GamingItem = props => {
   const {gameItemDetails} = props
-  const {title, thumbnailUrl, viewCount} = gameItemDetails
+  const {title, thumbnailUrl, id, viewCount} = gameItemDetails
   return (
     <NxtContext.Consumer>
       {value => {
@@ -13,17 +15,17 @@ const GamingItem = props => {
         return (
           <li className="list-gaming-container">
             <div className="image-gaming-container">
-              <img
-                src={thumbnailUrl}
-                alt=" video thumbnail"
-                className="gaming-thumbnail-url"
-              />
+              <Link to={`/videos/${id}`}>
+                <img
+                  src={thumbnailUrl}
+                  alt=" video thumbnail"
+                  className="gaming-thumbnail-url"
+                />
+              </Link>
             </div>
             <div className="title-view-count-container">
               <p className={titleClassName}>{title}</p>
-              <p className=" gaming-view-count">
-                {viewCount} Watching Worldwide
-              </p>
+              <p className={titleClassName}>{viewCount} Watching Worldwide</p>
             </div>
           </li>
         )

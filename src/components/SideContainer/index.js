@@ -12,43 +12,56 @@ const SideContainer = () => (
       const sidebarClassName = isDarkTheme
         ? 'sidebar-dark-container'
         : 'sidebar-light-container'
+      const linkClassName = isDarkTheme ? 'link-dark' : 'link-light'
+      const iconClassName = isDarkTheme ? 'color-icon-dark' : 'color-icon-light'
       return (
         <div className={sidebarClassName}>
           <ul className="side-sub-container">
             <div className="all-container">
               <li>
-                <AiFillHome className="main-icon" />
-              </li>
-              <li className="list-item">
-                <Link to="/">Home</Link>
-              </li>
-            </div>
-            <div className="all-container">
-              <li>
-                <AiOutlineFire className="main-icon" />
+                <AiFillHome className={iconClassName} />
               </li>
 
-              <li className="list-item">
-                <Link to="/trending"> Trending</Link>
+              <li className="link list-item-home">
+                <Link to="/" className={linkClassName}>
+                  Home
+                </Link>
               </li>
             </div>
             <div className="all-container">
               <li>
-                <SiYoutubegaming className="main-icon" />
+                <AiOutlineFire className={iconClassName} />
               </li>
-              <li className="list-item">
-                <Link to="/gaming">Gaming</Link>
+
+              <li className="list-item-trend">
+                <Link to="/trending" className={linkClassName}>
+                  Trending
+                </Link>
               </li>
             </div>
             <div className="all-container">
               <li>
-                <BiListPlus className="main-icon" />
+                <SiYoutubegaming className={iconClassName} />
               </li>
-              <li className="list-item">Saved videos</li>
+              <li className="list-item-game">
+                <Link to="/gaming" className={linkClassName}>
+                  Gaming
+                </Link>
+              </li>
+            </div>
+            <div className="all-container">
+              <li>
+                <BiListPlus className={iconClassName} />
+              </li>
+              <li className="list-item-save">
+                <Link to="/saved-videos" className={linkClassName}>
+                  Saved videos
+                </Link>
+              </li>
             </div>
           </ul>
           <div>
-            <h1 className="contact-heading">CONTACT US</h1>
+            <p className="contact-heading">CONTACT US</p>
             <ul className="contact-us-container">
               <li>
                 <img
@@ -75,8 +88,8 @@ const SideContainer = () => (
               </li>
             </ul>
             <p className="contact-paragraph">
-              Enjoy! Now you to see your <br />
-              channels and <br /> recommendations
+              Enjoy! Now to see your <br /> channels and <br />
+              recommendations!
             </p>
           </div>
         </div>

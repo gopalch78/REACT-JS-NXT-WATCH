@@ -140,7 +140,11 @@ class LoginForm extends Component {
                   </label>
                 </div>
 
-                <button type="submit" className="login-button">
+                <button
+                  type="submit"
+                  className="login-button"
+                  style={{color: '#ffffff'}}
+                >
                   Login
                 </button>
                 {showSubmitError && (

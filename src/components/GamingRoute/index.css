@@ -13,10 +13,10 @@
   margin-left: 45px;
 }
 .gaming-dark {
-  background-color: black;
+  background-color: #0f0f0f;
 }
 .gaming-light {
-  background-color: white;
+  background-color: #f9f9f9;
 }
 .gaming-retry-button {
   height: 30px;
@@ -24,4 +24,19 @@
   color: white;
   background-color: #4f46e5;
   border-radius: 8px;
+}
+
+.gaming-combined-container {
+  display: flex;
+  flex-direction: column;
+}
+.gaming-icon-dark {
+  color: red;
+  padding: 10px;
+  border-radius: 8px 8px 8px 8px;
+  background-color: #0f0f0f;
+  margin: 10px;
+}
+.icon-dark-container {
+  background-color: #313131;
 }
